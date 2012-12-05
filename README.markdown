@@ -1,3 +1,19 @@
+Artillery browserify fork
+=========================
+
+Getting started:
+
+    $ git clone git@github.com:artillery/node-browserify.git
+    $ cd node-browserify
+    $ git remote add upstream git://github.com/substack/node-browserify.git
+
+Differences from upstream:
+
+  * This README
+  * `contentfilter`: https://github.com/substack/node-browserify/pull/248
+
+----------------------------
+
 browserify
 ==========
 
