@@ -11,6 +11,7 @@ Differences from upstream:
 
   * This README
   * `contentfilter`: https://github.com/substack/node-browserify/pull/248
+  * `quiet-about-expressions`: https://github.com/substack/node-browserify/pull/249
 
 ----------------------------
 
