@@ -123,7 +123,7 @@ if (argv.ignore) bundle.ignore(argv.ignore);
         bundle.require(s[0], { target : s[1] });
         return;
     }
-    
+
     if (!/^[.\/]/.test(req)) {
         try {
             var res = resolve.sync(req, { basedir : process.cwd() });
@@ -144,14 +144,14 @@ if (argv.outfile) {
     function write () {
         var src = bundle.bundle();
         if (!bundle.ok) return;
-        
+
         fs.writeFile(argv.outfile, src, function () {
             if (argv.verbose) {
                 console.log(Buffer(src).length + ' bytes written');
             }
         });
     }
-    
+
     write();
     if (argv.watch) bundle.on('bundle', write)
 }

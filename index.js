@@ -19,7 +19,7 @@ function needsNodeModulesPrepended (id) {
 
 var exports = module.exports = function (entryFile, opts) {
     if (!opts) opts = {};
-    
+
     if (Array.isArray(entryFile)) {
         if (Array.isArray(opts.entry)) {
             opts.entry.unshift.apply(opts.entry, entryFile);
@@ -45,7 +45,7 @@ var exports = module.exports = function (entryFile, opts) {
             opts.entry = entryFile;
         }
     }
-    
+
     var opts_ = {
         cache : opts.cache,
         debug : opts.debug,
@@ -64,10 +64,10 @@ var exports = module.exports = function (entryFile, opts) {
     w.register('.json', function (body, file) {
         return 'module.exports = ' + body + ';\n';
     });
-    
+
     var listening = false;
     w._cache = null;
-    
+
     var self = function (req, res, next) {
         if (!listening && req.connection && req.connection.server) {
             req.connection.server.on('close', function () {
@@ -75,7 +75,7 @@ var exports = module.exports = function (entryFile, opts) {
             });
         }
         listening = true;
-        
+
         if (req.url.split('?')[0] === (opts.mount || '/browserify.js')) {
             if (!w._cache) self.bundle();
             res.statusCode = 200;
@@ -85,23 +85,23 @@ var exports = module.exports = function (entryFile, opts) {
         }
         else next()
     };
-    
+
     if (opts.watch) watch(w, opts.watch);
-    
+
     if (opts.filter) {
         w.register('post', function (body) {
             return opts.filter(body);
         });
     }
-    
+
     if (opts.contentfilter) {
         w.register('content', function (target, body) {
             return opts.contentfilter(target, body);
         });
     }
-    
+
     w.ignore(opts.ignore || []);
-    
+
     if (opts.require) {
         if (Array.isArray(opts.require)) {
             opts.require.forEach(function (r) {
@@ -151,14 +151,14 @@ var exports = module.exports = function (entryFile, opts) {
             w.addEntry(opts.entry);
         }
     }
-    
+
     Object.keys(w).forEach(function (key) {
         Object.defineProperty(self, key, {
             set : function (value) { w[key] = value },
             get : function () { return w[key] }
         });
     });
-    
+
     Object.keys(Object.getPrototypeOf(w)).forEach(function (key) {
         self[key] = function () {
             var s = w[key].apply(self, arguments)
@@ -166,7 +166,7 @@ var exports = module.exports = function (entryFile, opts) {
             return s;
         };
     });
-    
+
     Object.keys(EventEmitter.prototype).forEach(function (key) {
         if (typeof w[key] === 'function' && w[key].bind) {
             self[key] = w[key].bind(w);
@@ -175,31 +175,31 @@ var exports = module.exports = function (entryFile, opts) {
             self[key] = w[key];
         }
     });
-    
+
     var firstBundle = true;
     self.modified = new Date;
-    
+
     self.bundle = function () {
         if (w._cache) return w._cache;
-        
+
         var src = w.bundle.apply(w, arguments);
         self.ok = Object.keys(w.errors).length === 0;
-        
+
         if (!firstBundle) {
             self.modified = new Date;
         }
         firstBundle = false;
-        
+
         w._cache = src;
         return src;
     };
-    
+
     self.end = function () {
         Object.keys(w.watches || {}).forEach(function (file) {
             w.watches[file].close();
         });
     };
-    
+
     return self;
 };
 
