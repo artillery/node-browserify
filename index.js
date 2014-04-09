@@ -100,6 +100,7 @@ var exports = module.exports = function (entryFile, opts) {
 
         }
         catch (err) {
+            console.error(String(err));
             w.emit('syntaxError', err);
         }
         return res;
