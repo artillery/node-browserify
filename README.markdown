@@ -12,6 +12,8 @@ Differences from upstream:
   * This README
   * `contentfilter`: https://github.com/substack/node-browserify/pull/248
   * `quiet-about-expressions`: https://github.com/substack/node-browserify/pull/249
+  * Verbose output if the `BROWSERIFY_DEBUG` env var is truthy
+  * A hack to cache compiled CoffeeScript ala https://github.com/FogCreek/node-coffee-cache
 
 ----------------------------
 
