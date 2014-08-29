@@ -14,6 +14,7 @@ Differences from upstream:
   * `quiet-about-expressions`: https://github.com/substack/node-browserify/pull/249
   * Verbose output if the `BROWSERIFY_DEBUG` env var is truthy
   * A hack to cache compiled CoffeeScript ala https://github.com/FogCreek/node-coffee-cache
+  * Force new sourceURL symbol to new `//#` instead of `//@`
 
 ----------------------------
 
@@ -65,31 +66,31 @@ Usage: browserify [entry files] {OPTIONS}
 
 Options:
   --outfile, -o  Write the browserify bundle to this file.
-                 If unspecified, browserify prints to stdout.                   
+                 If unspecified, browserify prints to stdout.
   --require, -r  A module name or file to bundle.require()
-                 Optionally use a colon separator to set the target.            
-  --entry, -e    An entry point of your app                                     
+                 Optionally use a colon separator to set the target.
+  --entry, -e    An entry point of your app
   --exports      Export these core objects, comma-separated list
                  with any of: require, process. If unspecified, the
                  export behavior will be inferred.
-                                                                                
-  --ignore, -i   Ignore a file                                                  
+
+  --ignore, -i   Ignore a file
   --alias, -a    Register an alias with a colon separator: "to:from"
-                 Example: --alias 'jquery:jquery-browserify'                    
+                 Example: --alias 'jquery:jquery-browserify'
   --cache, -c    Turn on caching at $HOME/.config/browserling/cache.json or use
                  a file for caching.
                                                                  [default: true]
   --debug, -d    Switch on debugging mode with //@ sourceURL=...s.     [boolean]
   --plugin, -p   Use a plugin.
-                 Example: --plugin aliasify                                     
+                 Example: --plugin aliasify
   --prelude      Include the code that defines require() in this bundle.
                                                       [boolean]  [default: true]
   --watch, -w    Watch for changes. The script will stay open and write updates
                  to the output every time any of the bundled files change.
-                 This option only works in tandem with -o.                      
+                 This option only works in tandem with -o.
   --verbose, -v  Write out how many bytes were written in -o mode. This is
-                 especially useful with --watch.                                
-  --help, -h     Show this message                                              
+                 especially useful with --watch.
+  --help, -h     Show this message
 
 ````
 
